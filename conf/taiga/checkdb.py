@@ -1,9 +1,9 @@
 import os, sys, psycopg2
 
-DB_NAME = os.getenv('TAIGA_DB_NAME')
-DB_HOST = os.getenv('TAIGA_DB_HOST')
-DB_USER = os.getenv('TAIGA_DB_USER')
-DB_PASS = os.getenv('TAIGA_DB_PASSWORD')
+DB_NAME = os.getenv('TAIGA_DB_NAME', 'taiga')
+DB_HOST = os.getenv('TAIGA_DB_HOST', 'postgres')
+DB_USER = os.getenv('TAIGA_DB_USER', 'taiga')
+DB_PASS = os.getenv('TAIGA_DB_PASSWORD', 'taiga')
 
 conn_string = (
     "dbname='" + DB_NAME +
@@ -18,5 +18,5 @@ cur.execute("select * from information_schema.tables where table_name=%s", ('dja
 exists = bool(cur.rowcount)
 
 if exists is False:
-    print("Database does not appear to be setup.")
+    print("Database does not appear to be set up.")
     sys.exit(2)
